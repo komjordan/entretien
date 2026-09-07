@@ -17,7 +17,7 @@ from fastapi.responses import Response
 from adapt import AdaptationError, generate_prep
 from extract import ExtractionError, extract_text
 from ratelimit import RateLimitExceeded, check_and_record
-from render import render_docx
+from render import render_docx, render_pdf
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("entretien-generator")
@@ -51,8 +51,13 @@ async def generate(
     cv: UploadFile = File(...),
     entreprise: str = Form(...),
     offre: str = Form(...),
+    format: str = Form("docx"),
 ):
     client_ip = request.client.host if request.client else "unknown"
+
+    format = format.strip().lower()
+    if format not in ("docx", "pdf"):
+        raise HTTPException(status_code=400, detail="Format invalide (docx ou pdf attendu).")
 
     try:
         check_and_record(client_ip)
@@ -91,16 +96,23 @@ async def generate(
         del cv_text
 
     try:
-        docx_bytes = render_docx(data)
+        if format == "pdf":
+            file_bytes = render_pdf(data)
+            media_type = "application/pdf"
+            ext = "pdf"
+        else:
+            file_bytes = render_docx(data)
+            media_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            ext = "docx"
     except Exception as exc:  # pylint: disable=broad-except
-        logger.error("Rendu DOCX échoué: %s", exc)
+        logger.error("Rendu %s échoué: %s", format, exc)
         raise HTTPException(status_code=500, detail="Erreur lors de la génération du document.") from exc
     finally:
         del data
 
-    filename = f"Preparation_Entretien_{safe_filename(entreprise)}.docx"
+    filename = f"Preparation_Entretien_{safe_filename(entreprise)}.{ext}"
     return Response(
-        content=docx_bytes,
-        media_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        content=file_bytes,
+        media_type=media_type,
         headers={"Content-Disposition": f'attachment; filename="{filename}"'},
     )

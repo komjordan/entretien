@@ -203,6 +203,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <div class="hint">Plus la fiche est détaillée, meilleure sera la préparation.</div>
         <textarea id="offre" name="offre" placeholder="Collez ici l'intitulé du poste, les missions, les compétences demandées..." required></textarea>
 
+        <label>Format du document</label>
+        <div class="checkbox-line" style="gap:1.5rem; margin-bottom: 1.2rem;">
+          <label style="display:flex; align-items:center; gap:0.4rem; font-weight:normal; color:var(--text-color);">
+            <input type="radio" name="format" value="docx" checked style="width:auto; margin:0;"> Word (.docx)
+          </label>
+          <label style="display:flex; align-items:center; gap:0.4rem; font-weight:normal; color:var(--text-color);">
+            <input type="radio" name="format" value="pdf" style="width:auto; margin:0;"> PDF
+          </label>
+        </div>
+
         <div class="checkbox-line">
           <input type="checkbox" id="consent" required>
           <label for="consent">
@@ -259,6 +269,8 @@ form.addEventListener("submit", async (e) => {
   formData.append("cv", fileInput.files[0]);
   formData.append("entreprise", entreprise);
   formData.append("offre", offre);
+  const format = document.querySelector('input[name="format"]:checked').value;
+  formData.append("format", format);
 
   submitBtn.disabled = true;
   statusEl.textContent = "Génération en cours (peut prendre 30-40 secondes)...";
@@ -275,7 +287,7 @@ form.addEventListener("submit", async (e) => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = "Preparation_Entretien.docx";
+    a.download = format === "pdf" ? "Preparation_Entretien.pdf" : "Preparation_Entretien.docx";
     document.body.appendChild(a);
     a.click();
     a.remove();
