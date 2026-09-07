@@ -1,320 +1,148 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="fr" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Uploadez le CV utilisé pour postuler, indiquez l'entreprise et la fiche de poste : recevez pitch, questions probables et réponses STAR en Word ou PDF. Gratuit, sans inscription.">
+  <meta name="author" content="Axel KAMGAING KOM">
+  <link rel="canonical" href="https://entretien.komjordan.fr/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#2b1610">
 
-<title>Préparateur d'entretien IA gratuit — Axel KAMGAING KOM</title>
-<meta name="description" content="Uploadez le CV utilisé pour postuler, indiquez l'entreprise et la fiche de poste : obtenez une préparation d'entretien complète en Word (pitch, questions STAR, questions à poser). Gratuit, aucune donnée conservée.">
-<meta name="author" content="Axel KAMGAING KOM">
-<link rel="canonical" href="https://entretien.komjordan.fr/">
-<meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Préparateur d'entretien gratuit — Pitch, questions STAR et réponses sur mesure">
+  <meta property="og:description" content="Uploadez votre CV, indiquez l'entreprise et la fiche de poste, recevez votre préparation en quelques secondes. Gratuit, sans inscription.">
+  <meta property="og:url" content="https://entretien.komjordan.fr/">
+  <meta property="og:image" content="https://entretien.komjordan.fr/assets/icon-entretien.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="entretien.komjordan.fr">
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Préparateur d'entretien IA gratuit">
-<meta property="og:description" content="Générez une préparation d'entretien complète (pitch, questions STAR, questions à poser) à partir de votre CV et de la fiche de poste.">
-<meta property="og:url" content="https://entretien.komjordan.fr/">
-<meta property="og:image" content="https://komjordan.fr/assets/fav.png">
-<meta property="og:locale" content="fr_FR">
-<meta property="og:site_name" content="entretien.komjordan.fr">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Préparateur d'entretien gratuit — Pitch, questions STAR et réponses sur mesure">
+  <meta name="twitter:description" content="Uploadez votre CV, indiquez l'entreprise et la fiche de poste, recevez votre préparation en quelques secondes. Gratuit, sans inscription.">
+  <meta name="twitter:image" content="https://entretien.komjordan.fr/assets/icon-entretien.png">
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Préparateur d'entretien IA gratuit">
-<meta name="twitter:description" content="Générez votre préparation d'entretien en quelques secondes, gratuitement.">
-<meta name="twitter:image" content="https://komjordan.fr/assets/fav.png">
+  <title>Entretien komjordan — Préparez-vous, avec les bons mots.</title>
+  <link rel="icon" href="assets/icon-entretien.png" type="image/png">
+  <link rel="stylesheet" href="assets/styles.css">
 
-<link rel="icon" href="https://komjordan.fr/assets/fav.png" type="image/png">
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-M8CZ2MC2');</script>
 
-<link rel="stylesheet" href="https://komjordan.fr/main.css">
-
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-M8CZ2MC2');</script>
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "Préparateur d'entretien IA",
-  "url": "https://entretien.komjordan.fr/",
-  "applicationCategory": "BusinessApplication",
-  "operatingSystem": "Web",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-  "creator": {
-    "@type": "Person",
-    "name": "Axel KAMGAING KOM",
-    "url": "https://komjordan.fr",
-    "sameAs": ["https://www.linkedin.com/in/komjordan", "https://github.com/komjordan"]
-  },
-  "description": "Génère une préparation d'entretien complète (pitch, questions STAR, questions à poser au recruteur) à partir du CV utilisé pour postuler et de la fiche de poste."
-}
-</script>
-
-<style>
-  .hero { text-align: center; padding: 3rem 1rem 2rem; position: relative; z-index: 1; }
-  .hero h1 { font-size: 1.8rem; margin: 0 0 1rem; line-height: 1.35; }
-  .hero p { color: var(--time-color); max-width: 560px; margin: 0 auto; line-height: 1.6; }
-
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 0 2rem;
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Entretien komjordan",
+    "url": "https://entretien.komjordan.fr/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "creator": {
+      "@type": "Person",
+      "name": "Axel KAMGAING KOM",
+      "url": "https://komjordan.fr",
+      "sameAs": ["https://www.linkedin.com/in/komjordan", "https://github.com/komjordan"]
+    },
+    "description": "Génère une préparation d'entretien (pitch, questions STAR, questions à poser) à partir du CV utilisé pour postuler et de la fiche de poste."
   }
-  .step {
-    background-color: var(--card-color);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    padding: 1.2rem;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-  .step .n { font-family: 'Fira Code', monospace; color: var(--terminal-comment, #00ff80); font-size: 1.2rem; display: block; margin-bottom: 0.4rem; }
+  </script>
 
-  .content-list { max-width: 640px; margin: 1.5rem auto 0; text-align: left; font-size: 0.9rem; color: var(--time-color); }
-  .content-list li { margin-bottom: 0.4rem; }
-
-  .ent-tool {
-    max-width: 700px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: var(--card-color);
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    box-sizing: border-box;
-  }
-  .ent-tool * { box-sizing: border-box; }
-  .ent-tool h2 { margin: 0 0 0.3rem; font-size: 1.1rem; }
-  .ent-tool .sub { color: var(--time-color); font-size: 0.85rem; margin-bottom: 1.5rem; }
-
-  .ent-tool label { display: block; font-weight: bold; margin-bottom: 0.4rem; font-size: 0.9rem; }
-  .ent-tool .hint { font-size: 0.8rem; color: var(--time-color); margin: -0.2rem 0 0.6rem; }
-
-  .ent-tool input[type="file"],
-  .ent-tool input[type="text"] {
-    width: 100%; padding: 0.7rem; border: 1px solid var(--button-border);
-    border-radius: 8px; background: var(--input-bg); color: var(--text-color); margin-bottom: 1.2rem;
-    font-size: 0.9rem; font-family: inherit;
-  }
-  .ent-tool input[type="file"] { border-style: dashed; font-size: 0.85rem; }
-  .ent-tool textarea {
-    width: 100%; min-height: 160px; padding: 0.7rem; border: 1px solid var(--button-border);
-    border-radius: 8px; font-family: inherit; font-size: 0.9rem; resize: vertical;
-    margin-bottom: 1.2rem; background: var(--input-bg); color: var(--text-color);
-  }
-
-  .ent-tool .checkbox-line { display: flex; align-items: flex-start; gap: 0.5rem; margin-bottom: 1.3rem; }
-  .ent-tool .checkbox-line label { font-weight: normal; font-size: 0.85rem; margin: 0; color: var(--time-color); }
-  .ent-tool .checkbox-line a { color: inherit; text-decoration: underline; }
-
-  .ent-tool button[type="submit"] {
-    background-color: #f36; color: #fff; border: none; border-radius: 8px;
-    padding: 0.9rem 1.2rem; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%;
-    font-family: inherit; transition: background-color 0.3s ease;
-  }
-  .ent-tool button[type="submit"]:hover { background-color: #d12c5c; }
-  .ent-tool button[type="submit"]:disabled { background-color: var(--button-border); cursor: not-allowed; }
-
-  #ent-status { margin-top: 0.9rem; font-size: 0.9rem; text-align: center; }
-  #ent-status.error { color: #ff5c5c; }
-  #ent-status.ok { color: #00ff80; }
-
-  .privacy-note { font-size: 0.8rem; color: var(--time-color); text-align: center; margin-top: 0.6rem; }
-
-  @media (max-width: 768px) {
-    .steps { grid-template-columns: 1fr; padding: 0 1rem; }
-    .hero h1 { font-size: 1.4rem; }
-    .ent-tool { padding: 1.2rem; margin: 1.5rem 1rem; }
-
-    nav.menu a { display: inline-block !important; margin-left: 14px; font-size: 0.85rem; }
-    .menu-toggle { display: none !important; }
-    .mobile-menu { display: none !important; }
-  }
-</style>
+  <script src="assets/config.js" defer></script>
+  <script src="assets/app.js" defer></script>
 </head>
 <body>
+<a class="skip-link" href="#generateur">Aller au générateur</a>
+<header class="header" id="haut">
+  <div class="container nav-wrap">
+    <a class="brand" href="#haut" aria-label="Entretien komjordan, accueil">
+      <span class="brand-mark"><img src="assets/icon-entretien.png" alt="Logo préparateur d'entretien"></span>
+      <span class="brand-text">Préparateur<br>Entretien</span>
+    </a>
+    <button class="menu-toggle icon-button" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navigation"><span></span><span></span></button>
+    <nav id="navigation" aria-label="Navigation principale">
+      <a href="#comment-ca-marche">Comment ça marche</a>
+      <a href="#questions">Vos questions</a>
+      <a href="https://cv.komjordan.fr" target="_blank" rel="noopener">Générateur de CV</a>
+      <button class="icon-button theme-toggle" aria-label="Activer le thème sombre" title="Changer de thème"><span class="theme-icon" aria-hidden="true">🌑</span></button>
+      <a class="button button-small button-light" href="#generateur">Préparer mon entretien <span aria-hidden="true">↗</span></a>
+    </nav>
+  </div>
+</header>
 
-<div id="particles-wrapper"><div id="tsparticles"></div></div>
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-photo" aria-hidden="true"></div><div class="hero-shade" aria-hidden="true"></div>
+    <div class="container hero-main">
+      <div class="hero-copy">
+        <h1 id="hero-title">Votre entretien.<br>La bonne<br><em>préparation.</em></h1>
+        <p class="hero-description">Un CV, une entreprise, une fiche de poste.<br class="desktop-break"> Obtenez un pitch, des questions probables et des réponses STAR construites sur votre parcours.</p>
+        <div class="hero-actions"><a class="button button-mint" href="#generateur">Préparer mon entretien <span aria-hidden="true">↗</span></a><a class="text-link" href="#comment-ca-marche"><span class="play-icon" aria-hidden="true">↓</span> Découvrir le fonctionnement</a></div>
+        <p class="hero-reassurance"><span>✓ Gratuit</span><span>✓ Sans inscription</span><span>✓ Word ou PDF</span></p>
+      </div>
+      <aside class="hero-note" aria-label="Notre approche"><span class="note-symbol" aria-hidden="true">✦</span><div><p>Vos réponses, avec du relief.</p><span>Ancrées dans vos vraies expériences.</span></div></aside>
+    </div>
+  </section>
 
-<div class="page-wrapper"><div class="page">
+  <section class="generator-section" id="generateur" aria-labelledby="generator-title">
+    <div class="container">
+      <div class="steps-grid" id="comment-ca-marche">
+        <article class="step"><div class="step-top"><span class="step-number">01</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 22V5m-6 6 6-6 6 6M5 21v6h22v-6"/></svg></div><h3>Uploadez votre CV</h3><p>Celui utilisé pour postuler à cette offre précisément.</p></article>
+        <article class="step"><div class="step-top"><span class="step-number">02</span><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="4" width="18" height="24" rx="2"/><path d="M12 11h8m-8 5h8m-8 5h5"/></svg></div><h3>Entreprise et fiche de poste</h3><p>Le nom de l'entreprise et le texte complet de l'annonce.</p></article>
+        <article class="step"><div class="step-top"><span class="step-number">03</span><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5v17m-6-6 6 6 6-6M5 24v4h22v-4"/></svg></div><h3>Téléchargez votre préparation</h3><p>Pitch, questions STAR, points faibles cadrés, questions à poser.</p></article>
+      </div>
 
-  <header>
-    <div class="container" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-      <a href="/index.html" style="text-decoration:none; color:inherit;">
-        <div class="logo">root@entretien:~#<span class="cursor"></span></div>
-      </a>
+      <div class="cv-cta">
+        <p><strong>Votre CV n'est plus à jour pour ce poste ?</strong>Adaptez-le d'abord à l'offre visée, puis revenez préparer votre entretien.</p>
+        <a class="button button-dark" href="https://cv.komjordan.fr" target="_blank" rel="noopener">Générateur de CV <span aria-hidden="true">↗</span></a>
+      </div>
 
-      <nav class="menu">
-        <a href="https://cv.komjordan.fr">Générateur de CV</a>
-        <div class="theme-toggle" id="toggleTheme">
-          <span id="themeIcon">🌑</span>
-          <span id="themeLabel">Sombre</span>
-        </div>
-      </nav>
+      <div class="section-heading"><div><p class="eyebrow">À VOUS DE JOUER</p><h2 id="generator-title">Le prochain échange<br><em>se prépare ici.</em></h2></div><p>Un CV, une entreprise, une offre.<br>Nous vous aidons à construire vos réponses.</p></div>
+      <div class="workspace-single">
+        <form id="ent-form" class="form-panel">
+          <fieldset class="format-choice format-choice-top" id="formats"><legend>Format du document</legend><div class="format-options">
+            <label><input type="radio" name="format" value="docx" checked><span><strong>Word</strong><small>.docx</small></span><span class="radio-dot"></span></label>
+            <label><input type="radio" name="format" value="pdf"><span><strong>PDF</strong><small>.pdf</small></span><span class="radio-dot"></span></label>
+          </div></fieldset>
 
-      <div class="menu-toggle" id="menuBtn">☰</div>
-      <div class="mobile-menu" id="mobileMenu">
-        <a href="https://cv.komjordan.fr">Générateur de CV</a>
+          <div class="field-heading"><span>1</span><div><label for="cv-file">CV utilisé pour postuler</label><p id="file-help">PDF ou DOCX · 5 Mo maximum</p></div></div>
+          <div class="dropzone" id="dropzone">
+            <input type="file" id="cv-file" name="cv" accept=".pdf,.docx" required aria-describedby="file-help file-status">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 22V5m-6 6 6-6 6 6M5 22v5h22v-5"/></svg>
+            <strong id="file-label">Glissez votre CV ici</strong><span id="file-status">ou <u>parcourez vos fichiers</u></span>
+          </div>
+          <div class="file-actions" id="file-actions" hidden><button type="button" class="small-link" id="remove-file">Retirer le fichier</button></div>
+
+          <div class="field-heading"><span>2</span><div><label for="entreprise">Nom de l'entreprise</label><p>L'entreprise auprès de laquelle vous passez l'entretien.</p></div></div>
+          <input type="text" id="entreprise" name="entreprise" maxlength="200" required placeholder="Ex : ACME Corp">
+
+          <div class="field-heading"><span>3</span><div><label for="offre">Fiche de poste</label><p id="offer-help">Collez le texte complet de l'annonce.</p></div></div>
+          <textarea id="offre" name="offre" rows="7" maxlength="30000" required aria-describedby="offer-help offer-count" placeholder="Intitulé du poste, missions, compétences recherchées…&#10;&#10;Collez ici le texte complet de la fiche de poste (pas le lien vers l'offre)."></textarea>
+          <div class="field-meta" style="justify-content:flex-end;"><span id="offer-count">0 / 30 000</span></div>
+
+          <div class="consent-row"><input type="checkbox" id="consent" required><label for="consent">J'accepte que mon CV et la fiche de poste soient envoyés à un service d'IA (Anthropic) pour générer le document, sans conservation après traitement. Voir la <a href="confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</label></div>
+          <button class="button button-dark generate-button" type="submit" id="ent-submit-btn"><span>Générer ma préparation</span><span aria-hidden="true">↗</span></button>
+          <p class="form-note">🔒 Zéro stockage — vos documents ne sont jamais enregistrés sur ce serveur.</p>
+          <div id="ent-status" role="status" aria-live="polite" tabindex="-1" hidden></div>
+          <button class="small-link" id="cancel-generation" type="button" hidden>Arrêter l'attente</button>
+          <div class="download-panel" id="ent-download-wrap" hidden><p><strong>Votre préparation est prête.</strong><br>Relisez-la avant votre entretien.</p><a class="button button-mint" id="ent-download-link" download="Preparation_Entretien.docx">Télécharger ma préparation <span aria-hidden="true">↓</span></a></div>
+        </form>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <div class="hero">
-      <h1>Préparez votre entretien en quelques secondes</h1>
-      <p>
-        Uploadez le CV avec lequel vous avez postulé, indiquez l'entreprise et
-        collez la fiche de poste. Vous recevez un document Word complet :
-        analyse de l'offre, pitch, questions probables avec réponses STAR,
-        cadrage des points faibles, et questions à poser au recruteur.
-      </p>
-    </div>
-
-    <div class="steps">
-      <div class="step"><span class="n">01</span>Uploadez le CV utilisé pour postuler</div>
-      <div class="step"><span class="n">02</span>Indiquez l'entreprise et la fiche de poste</div>
-      <div class="step"><span class="n">03</span>Téléchargez votre préparation (.docx)</div>
-    </div>
-
-    <ul class="content-list">
-      <li>✓ Analyse de l'offre et correspondances avec votre profil</li>
-      <li>✓ Pitch de présentation prêt à dire à l'oral</li>
-      <li>✓ 8 à 10 questions probables avec réponses STAR rédigées</li>
-      <li>✓ Cadrage des points faibles éventuels</li>
-      <li>✓ Questions pertinentes à poser au recruteur</li>
-    </ul>
-
-    <section class="ent-tool">
-      <h2>&gt; Préparer mon entretien</h2>
-      <div class="sub">Aucune donnée conservée après génération — traitement en mémoire uniquement.</div>
-
-      <form id="ent-form">
-        <label for="cv-file">CV utilisé pour postuler (PDF ou DOCX, 5 Mo max)</label>
-        <input type="file" id="cv-file" name="cv" accept=".pdf,.docx" required>
-
-        <label for="entreprise">Nom de l'entreprise</label>
-        <input type="text" id="entreprise" name="entreprise" placeholder="Ex : ACME Corp" required maxlength="200">
-
-        <label for="offre">Fiche de poste (collez le texte complet)</label>
-        <div class="hint">Plus la fiche est détaillée, meilleure sera la préparation.</div>
-        <textarea id="offre" name="offre" placeholder="Collez ici l'intitulé du poste, les missions, les compétences demandées..." required></textarea>
-
-        <label>Format du document</label>
-        <div class="checkbox-line" style="gap:1.5rem; margin-bottom: 1.2rem;">
-          <label style="display:flex; align-items:center; gap:0.4rem; font-weight:normal; color:var(--text-color);">
-            <input type="radio" name="format" value="docx" checked style="width:auto; margin:0;"> Word (.docx)
-          </label>
-          <label style="display:flex; align-items:center; gap:0.4rem; font-weight:normal; color:var(--text-color);">
-            <input type="radio" name="format" value="pdf" style="width:auto; margin:0;"> PDF
-          </label>
-        </div>
-
-        <div class="checkbox-line">
-          <input type="checkbox" id="consent" required>
-          <label for="consent">
-            J'accepte que mon CV et la fiche de poste soient envoyés à un service d'IA (Anthropic)
-            pour générer le document, sans conservation après traitement. Voir la
-            <a href="/confidentialite.html">politique de confidentialité</a>.
-          </label>
-        </div>
-
-        <button type="submit" id="ent-submit-btn">Générer ma préparation</button>
-      </form>
-      <div id="ent-status"></div>
-      <div id="ent-download-wrap" style="text-align:center; margin-top:1rem; display:none;">
-        <a id="ent-download-link" href="#" style="display:inline-block; background-color:#2563EB; color:#fff; padding:0.7rem 1.4rem; border-radius:8px; text-decoration:none; font-weight:bold;">⬇ Télécharger le document</a>
-      </div>
-      <div class="privacy-note">🔒 Zéro stockage — vos documents ne sont jamais enregistrés sur ce serveur.</div>
-    </section>
-  </main>
-
-  <footer>
-    Un projet de <a href="https://www.linkedin.com/in/komjordan" target="_blank" rel="noopener" style="font-weight:bold;">Axel KAMGAING KOM</a>
-    — <a href="https://komjordan.fr">komjordan.fr</a>
-  </footer>
-
-</div></div>
-
-<button id="scrollTopBtn">
-  <span class="arrow-only">↑</span>
-  <span class="text">Haut de page</span>
-</button>
-
-<script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
-<script src="https://komjordan.fr/main.js"></script>
-
-<script>
-const API_URL = "https://entretien.komjordan.fr/api/generate";
-const form = document.getElementById("ent-form");
-const statusEl = document.getElementById("ent-status");
-const submitBtn = document.getElementById("ent-submit-btn");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  statusEl.className = "";
-  statusEl.textContent = "";
-
-  const downloadWrap = document.getElementById("ent-download-wrap");
-  const downloadLink = document.getElementById("ent-download-link");
-  if (downloadLink.href && downloadLink.href.startsWith("blob:")) {
-    window.URL.revokeObjectURL(downloadLink.href);
-  }
-  downloadWrap.style.display = "none";
-
-  const fileInput = document.getElementById("cv-file");
-  const entreprise = document.getElementById("entreprise").value.trim();
-  const offre = document.getElementById("offre").value.trim();
-
-  if (!fileInput.files.length) {
-    statusEl.className = "error";
-    statusEl.textContent = "Merci de sélectionner un fichier.";
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("cv", fileInput.files[0]);
-  formData.append("entreprise", entreprise);
-  formData.append("offre", offre);
-  const format = document.querySelector('input[name="format"]:checked').value;
-  formData.append("format", format);
-
-  submitBtn.disabled = true;
-  statusEl.textContent = "Génération en cours (peut prendre 30-40 secondes)...";
-
-  try {
-    const res = await fetch(API_URL, { method: "POST", body: formData });
-
-    if (!res.ok) {
-      const err = await res.json().catch(() => ({}));
-      throw new Error(err.detail || `Erreur ${res.status}`);
-    }
-
-    const blob = await res.blob();
-    const url = window.URL.createObjectURL(blob);
-
-    const disposition = res.headers.get("Content-Disposition") || "";
-    const match = disposition.match(/filename="?([^"]+)"?/);
-    const filename = match ? match[1] : (format === "pdf" ? "Preparation_Entretien.pdf" : "Preparation_Entretien.docx");
-
-    downloadLink.href = url;
-    downloadLink.download = filename;
-    downloadWrap.style.display = "block";
-
-    statusEl.className = "ok";
-    statusEl.textContent = "Préparation générée ! Cliquez ci-dessous pour télécharger.";
-    form.reset();
-  } catch (err) {
-    statusEl.className = "error";
-    statusEl.textContent = err.message || "Une erreur est survenue.";
-  } finally {
-    submitBtn.disabled = false;
-  }
-});
-</script>
-
-</body>
-</html>
+  <section class="section container faq-section" id="questions"><div><p class="eyebrow">TOUT SIMPLEMENT</p><h2>Avant de<br><em>vous lancer.</em></h2><p>Les réponses aux questions<br>que vous vous posez peut-être.</p></div><div class="faq-list">
+    <details><summary>Est-ce vraiment gratuit ?<span aria-hidden="true">+</span></summary><p>Oui. L'outil est accessible gratuitement, sans création de compte et sans paiement, sous réserve de la disponibilité du service.</p></details>
+    <details><summary>Les réponses STAR sont-elles inventées ?<span aria-hidden="true">+</span></summary><p>Non. Chaque réponse s'appuie uniquement sur des expériences réellement présentes dans le CV fourni. Aucune expérience, chiffre ou compétence n'est inventé.</p></details>
+    <details><summary>Quels fichiers puis-je utiliser ?<span aria-hidden="true">+</span></summary><p>Vous pouvez déposer un fichier PDF ou DOCX de 5 Mo maximum. Privilégiez un PDF contenant du texte sélectionnable.</p></details>
+    <details><summary>Que deviennent mes données ?<span aria-hidden="true">+</span></summary><p>Le CV et la fiche de poste ne sont envoyés qu'après votre accord. Le service komjordan les traite en mémoire, sans stockage durable. <a href="confidentialite.html">Consulter les détails</a>.</p></details>
+    <details><summary>Word ou PDF, lequel choisir ?<span aria-hidden="true">+</span></summary><p>Les deux contiennent le même contenu. Le Word est plus simple à annoter ou modifier avant votre entretien ; le PDF se partage et s'imprime plus facilement.</p></details>
+    <details><summary>La génération ne fonctionne pas. Que faire ?<span aria-hidden="true">+</span></summary><p>Vérifiez le format et la taille du fichier, le texte de la fiche de poste et votre connexion. Le traitement peut prendre 30 à 40 secondes. En cas d'indisponibilité, réessayez plus tard.</p></details>
+  </div></section>
+</main>
+<footer class="footer simple-footer"><p>Un projet de <a href="https://www.linkedin.com/in/komjordan" target="_blank" rel="noopener">Axel KAMGAING KOM</a> — <a href="https://komjordan.fr" target="_blank" rel="noopener">komjordan.fr</a></p></footer>
+<noscript><div class="noscript">Activez JavaScript pour utiliser le générateur. Les informations et la politique de confidentialité restent accessibles.</div></noscript>
+</body></html>
