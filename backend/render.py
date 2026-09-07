@@ -91,7 +91,7 @@ def render_docx(data: dict) -> bytes:
     footer = section.footer
     footer_p = footer.paragraphs[0]
     footer_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    footer_run = footer_p.add_run("Généré par entretien.komjordan.fr")
+    footer_run = footer_p.add_run("Généré par https://entretien.komjordan.fr")
     footer_run.font.size = Pt(8)
     footer_run.font.color.rgb = GRAY
 
@@ -198,7 +198,7 @@ def render_pdf(data: dict) -> bytes:
                 "--margin-bottom", "20mm",
                 "--dpi", "300",
                 "--disable-smart-shrinking",
-                "--footer-center", "Généré par entretien.komjordan.fr",
+                "--footer-center", "Généré par https://entretien.komjordan.fr",
                 "--footer-font-size", "8",
                 "--footer-spacing", "4",
                 "--footer-font-name", "Helvetica",
