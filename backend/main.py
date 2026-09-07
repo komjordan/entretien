@@ -104,17 +104,18 @@ async def generate(
             file_bytes = render_docx(data)
             media_type = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             ext = "docx"
+
+        filename = (
+            f"Preparation_Entretien_{safe_filename(data.get('candidat', ''))}"
+            f"_{safe_filename(data.get('poste', ''))}"
+            f"_{safe_filename(entreprise)}.{ext}"
+        )
     except Exception as exc:  # pylint: disable=broad-except
         logger.error("Rendu %s échoué: %s", format, exc)
         raise HTTPException(status_code=500, detail="Erreur lors de la génération du document.") from exc
     finally:
         del data
 
-    filename = (
-        f"Preparation_Entretien_{safe_filename(data.get('candidat', ''))}"
-        f"_{safe_filename(data.get('poste', ''))}"
-        f"_{safe_filename(entreprise)}.{ext}"
-    )
     return Response(
         content=file_bytes,
         media_type=media_type,
