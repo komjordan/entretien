@@ -78,7 +78,7 @@ class AdaptationError(Exception):
 def generate_prep(cv_text: str, entreprise: str, offre_text: str) -> dict:
     message = CLIENT.messages.create(
         model=MODEL,
-        max_tokens=6000,
+        max_tokens=8000,
         system=SYSTEM_PROMPT,
         messages=[
             {
@@ -95,6 +95,12 @@ def generate_prep(cv_text: str, entreprise: str, offre_text: str) -> dict:
 
     raw = "".join(block.text for block in message.content if block.type == "text").strip()
     raw = raw.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
+
+    if not raw:
+        raise AdaptationError(
+            f"Réponse vide de l'IA (stop_reason={message.stop_reason}, "
+            f"blocs={[b.type for b in message.content]})"
+        )
 
     try:
         data = json.loads(raw)
