@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: ./backend
+    container_name: entretien-generator-backend
+    restart: unless-stopped
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8001:8000"   # port different de cv-generator (8000)
+
+  frontend:
+    image: nginx:alpine
+    container_name: entretien-generator-frontend
+    restart: unless-stopped
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    ports:
+      - "127.0.0.1:8081:80"     # port different de cv-generator (8080)
