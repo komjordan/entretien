@@ -86,6 +86,15 @@ def render_docx(data: dict) -> bytes:
     for q in data.get("questions_recruteur", []):
         doc.add_paragraph(q, style="List Bullet")
 
+    # Pied de page signé
+    section = doc.sections[0]
+    footer = section.footer
+    footer_p = footer.paragraphs[0]
+    footer_p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    footer_run = footer_p.add_run("Généré par entretien.komjordan.fr")
+    footer_run.font.size = Pt(8)
+    footer_run.font.color.rgb = GRAY
+
     buf = io.BytesIO()
     doc.save(buf)
     return buf.getvalue()
@@ -186,8 +195,13 @@ def render_pdf(data: dict) -> bytes:
                 "wkhtmltopdf",
                 "--enable-local-file-access",
                 "--page-size", "A4",
+                "--margin-bottom", "20mm",
                 "--dpi", "300",
                 "--disable-smart-shrinking",
+                "--footer-center", "Généré par entretien.komjordan.fr",
+                "--footer-font-size", "8",
+                "--footer-spacing", "4",
+                "--footer-font-name", "Helvetica",
                 str(html_path),
                 str(pdf_path),
             ],

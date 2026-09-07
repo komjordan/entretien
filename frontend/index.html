@@ -225,6 +225,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <button type="submit" id="ent-submit-btn">Générer ma préparation</button>
       </form>
       <div id="ent-status"></div>
+      <div id="ent-download-wrap" style="text-align:center; margin-top:1rem; display:none;">
+        <a id="ent-download-link" href="#" style="display:inline-block; background-color:#2563EB; color:#fff; padding:0.7rem 1.4rem; border-radius:8px; text-decoration:none; font-weight:bold;">⬇ Télécharger le document</a>
+      </div>
       <div class="privacy-note">🔒 Zéro stockage — vos documents ne sont jamais enregistrés sur ce serveur.</div>
     </section>
   </main>
@@ -254,6 +257,13 @@ form.addEventListener("submit", async (e) => {
   e.preventDefault();
   statusEl.className = "";
   statusEl.textContent = "";
+
+  const downloadWrap = document.getElementById("ent-download-wrap");
+  const downloadLink = document.getElementById("ent-download-link");
+  if (downloadLink.href && downloadLink.href.startsWith("blob:")) {
+    window.URL.revokeObjectURL(downloadLink.href);
+  }
+  downloadWrap.style.display = "none";
 
   const fileInput = document.getElementById("cv-file");
   const entreprise = document.getElementById("entreprise").value.trim();
@@ -285,16 +295,14 @@ form.addEventListener("submit", async (e) => {
 
     const blob = await res.blob();
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = format === "pdf" ? "Preparation_Entretien.pdf" : "Preparation_Entretien.docx";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    window.URL.revokeObjectURL(url);
+    const filename = format === "pdf" ? "Preparation_Entretien.pdf" : "Preparation_Entretien.docx";
+
+    downloadLink.href = url;
+    downloadLink.download = filename;
+    downloadWrap.style.display = "block";
 
     statusEl.className = "ok";
-    statusEl.textContent = "Préparation générée et téléchargée !";
+    statusEl.textContent = "Préparation générée ! Cliquez ci-dessous pour télécharger.";
     form.reset();
   } catch (err) {
     statusEl.className = "error";

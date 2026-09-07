@@ -36,6 +36,7 @@ d'entretien complète et renvoyer UNIQUEMENT un objet JSON (aucun texte
 avant/après, aucun bloc markdown) respectant exactement ce schéma :
 
 {
+  "candidat": "string (prénom et nom du candidat, tels qu'ils apparaissent sur le CV)",
   "entreprise": "string",
   "poste": "string (intitulé du poste tel que dans l'offre)",
   "analyse_offre": "string (5-8 lignes : compétences clés attendues, correspondances fortes avec le profil, écarts éventuels)",

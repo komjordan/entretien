@@ -110,7 +110,11 @@ async def generate(
     finally:
         del data
 
-    filename = f"Preparation_Entretien_{safe_filename(entreprise)}.{ext}"
+    filename = (
+        f"Preparation_Entretien_{safe_filename(data.get('candidat', ''))}"
+        f"_{safe_filename(data.get('poste', ''))}"
+        f"_{safe_filename(entreprise)}.{ext}"
+    )
     return Response(
         content=file_bytes,
         media_type=media_type,
