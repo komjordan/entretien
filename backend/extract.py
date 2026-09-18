@@ -3,14 +3,10 @@ Extraction du texte brut d'un CV uploadé (PDF ou DOCX).
 Tout se fait en mémoire, rien n'est écrit sur disque.
 """
 import io
+import zipfile
 
 import pdfplumber
 from docx import Document
-
-ALLOWED_TYPES = {
-    "application/pdf": "pdf",
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
-}
 
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 Mo
 
@@ -19,13 +15,36 @@ class ExtractionError(Exception):
     pass
 
 
-def extract_text(file_bytes: bytes, content_type: str) -> str:
+def _sniff_kind(file_bytes: bytes) -> str | None:
+    """
+    Détermine le vrai type du fichier à partir de sa signature binaire
+    (magic bytes), jamais à partir du Content-Type déclaré par le client
+    — ce dernier est entièrement falsifiable par quiconque appelle l'API
+    directement (sans passer par le formulaire web).
+    """
+    if file_bytes[:5] == b"%PDF-":
+        return "pdf"
+    if file_bytes[:4] == b"PK\x03\x04":
+        # Un DOCX est un ZIP : on vérifie qu'il contient bien la structure
+        # interne attendue, pas juste n'importe quelle archive ZIP renommée.
+        try:
+            with zipfile.ZipFile(io.BytesIO(file_bytes)) as zf:
+                if "word/document.xml" in zf.namelist():
+                    return "docx"
+        except zipfile.BadZipFile:
+            return None
+    return None
+
+
+def extract_text(file_bytes: bytes, content_type: str = "") -> str:
     if len(file_bytes) > MAX_FILE_SIZE:
         raise ExtractionError("Fichier trop volumineux (5 Mo max).")
 
-    kind = ALLOWED_TYPES.get(content_type)
+    kind = _sniff_kind(file_bytes)
     if kind is None:
-        raise ExtractionError("Format non supporté. Utilisez un PDF ou un DOCX.")
+        raise ExtractionError(
+            "Format non supporté ou fichier invalide/corrompu. Utilisez un PDF ou un DOCX."
+        )
 
     if kind == "pdf":
         return _extract_pdf(file_bytes)

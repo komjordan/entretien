@@ -40,6 +40,22 @@ def safe_filename(name: str) -> str:
     return name[:60] or "Entreprise"
 
 
+def get_client_ip(request: Request) -> str:
+    """
+    Derriere le reverse proxy Nginx. X-Forwarded-For est CONTROLE PAR LE CLIENT
+    (un attaquant peut envoyer n'importe quelle valeur pour se faire passer pour
+    une IP differente a chaque requete et contourner la limite par IP) : on ne
+    lui fait jamais confiance directement.
+    X-Real-IP, en revanche, est TOUJOURS ECRASE par Nginx avec la vraie IP de
+    connexion (voir nginx/*.conf) — le client ne peut pas le falsifier puisque
+    Nginx remplace systematiquement sa valeur avant de transmettre au backend.
+    """
+    real_ip = request.headers.get("x-real-ip")
+    if real_ip:
+        return real_ip.strip()
+    return request.client.host if request.client else "unknown"
+
+
 @app.get("/api/health")
 def health():
     return {"status": "ok"}
@@ -53,7 +69,7 @@ async def generate(
     offre: str = Form(...),
     format: str = Form("docx"),
 ):
-    client_ip = request.client.host if request.client else "unknown"
+    client_ip = get_client_ip(request)
 
     format = format.strip().lower()
     if format not in ("docx", "pdf"):
